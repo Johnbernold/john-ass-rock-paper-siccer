@@ -84,66 +84,12 @@ class GamePage extends Component {
     return opponentSelected
   }
 
-  getSelectedOption = value => {
-    const {scoreValue} = this.state
-    const opponentValue = this.renderOpponent()
-    const yourId = value.id
-    const opponentId = opponentValue.id
-
-    const yourImageUrl = value.imageUrl
-
-    const opponentImageUrl = opponentValue.imageUrl
-
-    const isDraw =
-      (yourId === answerList.rock && opponentId === answerList.rock) ||
-      (yourId === answerList.paper && opponentId === answerList.paper) ||
-      (yourId === answerList.scissors && opponentId === answerList.scissors)
-
-    const isWin =
-      (yourId === answerList.rock && opponentId === answerList.scissors) ||
-      (yourId === answerList.paper && opponentId === answerList.rock) ||
-      (yourId === answerList.scissors && opponentId === answerList.paper)
-
-    let answerText = ''
-    let scoreDisplay = scoreValue
-
-    if (isDraw === true) {
-      answerText = resultList.draw
-    } else if (isWin === true) {
-      answerText = resultList.youWon
-      scoreDisplay += 1
-    } else {
-      answerText = resultList.youLose
-      scoreDisplay -= 1
-    }
-
-    this.setState({
-      playingViewSelected: false,
-      resultText: answerText,
-      selectedImage: yourImageUrl,
-      opponentImage: opponentImageUrl,
-      scoreValue: scoreDisplay,
-    })
-  }
-
   onClickPlayAgain = () => {
     this.setState({playingViewSelected: true})
   }
 
   topScoreSection = () => {
     const {scoreValue} = this.state
-
-    return (
-      <ScoreViewSection>
-        <ScoreTypeSection>
-          <h1 color="#ffffff">ROCK PAPER SCISSORS</h1>
-        </ScoreTypeSection>
-        <ScoreValueSection>
-          <GameName color="#223a5f">Score</GameName>
-          <ScoreAnswer>{scoreValue}</ScoreAnswer>
-        </ScoreValueSection>
-      </ScoreViewSection>
-    )
   }
 
   playingView = () => (
@@ -194,23 +140,9 @@ class GamePage extends Component {
             {playingViewSelected ? this.playingView() : this.resultView()}
           </LowerSection>
         </DisplaySection>
+        <h1>John Bernold</h1>
 
-        <PopupSection>
-          <Popup modal trigger={<button type="button">RULES</button>}>
-            {close => (
-              <RulesContainer>
-                <CloseButton type="button" onClick={() => close()}>
-                  <RiCloseLine />
-                </CloseButton>
-
-                <RulesImage
-                  alt="rules"
-                  src="https://assets.ccbp.in/frontend/react-js/rock-paper-scissor/rules-image.png"
-                />
-              </RulesContainer>
-            )}
-          </Popup>
-        </PopupSection>
+      
       </MainGameSection>
     )
   }
